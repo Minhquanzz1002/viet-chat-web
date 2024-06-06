@@ -1,58 +1,106 @@
-import {ReactElement, useState} from "react";
+import React, {ReactElement, useState} from "react";
 import ChatMenu from "../menu/ChatMenu.tsx";
 import ContactMenu from "../menu/ContactMenu.tsx";
 import Searchbar from "../searchbar";
 import TodoMenu from "../menu/TodoMenu.tsx";
 
+import {AddressBook, CommentDots, Gear, SquareCheck} from "../../../components/Icons";
+import {Avatar} from "../../../components/Avatar";
+import useTabSelected from "../../../hooks/useTabSelected.ts";
+import {useAuth} from "../../../hooks/useAuth.ts";
+
 interface Tab {
-    icon: string,
-    activeIcon: string,
+    icon: ReactElement,
     component: ReactElement
 }
 
-const tabs : Tab[] = [
+const tabs: Tab[] = [
     {
-        icon: '/message-outline.png',
-        activeIcon: '/message.png',
+        icon: <CommentDots/>,
         component: <ChatMenu/>
     },
     {
-        icon: '/contact-book-outline.png',
-        activeIcon: '/contact-selected.png',
+        icon: <AddressBook/>,
         component: <ContactMenu/>
     },
     {
-        icon: '/todo-outline.png',
-        activeIcon: '/todo-selected.png',
+        icon: <SquareCheck/>,
         component: <TodoMenu/>
     }
 ];
 const Sidebar = () => {
+    const {profile} = useAuth();
+
+    const {setTabSelected} = useTabSelected();
     const [activeTab, setActiveTab] = useState<number>(0);
+
+    const onClickTab = (index: number) => {
+        setActiveTab(index);
+        if (index === 0) {
+            setTabSelected(prevState => ({
+                ...prevState,
+                chat: {
+                    ...prevState.chat,
+                    isSelected: true
+                },
+                contact: {
+                    ...prevState.contact,
+                    isSelected: false,
+                    tabId: 0,
+                }
+            }));
+        }
+        if (index === 1) {
+            setTabSelected(prevState => ({
+                ...prevState,
+                chat: {
+                    ...prevState.chat,
+                    isSelected: false
+                },
+                contact: {
+                    ...prevState.contact,
+                    isSelected: true,
+                    tabId: 0,
+                }
+            }));
+        }
+    }
+
     return (
         <nav className="flex flex-row">
             <div className="h-screen w-16 bg-[#0091FF] flex flex-col justify-between">
                 {/* Start: Sidebar top */}
-                <div className="">
-                    <div>
-                        avatar
+                <div>
+                    <div className="flex justify-center mt-8 my-5">
+                        {
+                            profile?.thumbnailAvatar ? <Avatar src={profile.thumbnailAvatar} alt="avatar"/> :
+                                <Avatar>{profile?.lastName.charAt(0).toUpperCase()}</Avatar>
+                        }
                     </div>
                     {
                         tabs.map((tab: Tab, index: number) => (
-                            <div key={index} className={`aspect-square flex items-center justify-center cursor-pointer ${activeTab === index ? 'bg-[#006edc]' : 'hover:bg-[#0082E5]'}`} onClick={() => setActiveTab(index)}>
-                                <img src={index === activeTab ? tab.activeIcon : tab.icon} alt="Tab" className="w-6"/>
-                            </div> 
+                            <div key={index}
+                                 className={`aspect-square flex items-center justify-center cursor-pointer ${activeTab === index ? 'bg-[#006edc]' : 'hover:bg-[#0082E5]'}`}
+                                 onClick={() => onClickTab(index)}>
+                                {
+                                    React.cloneElement(tab.icon, {type: activeTab === index && "solid"})
+                                }
+                            </div>
                         ))
                     }
                 </div>
                 {/* End: Sidebar top */}
 
                 {/* Start: Sidebar bottom */}
-                <div>a</div>
+                <div>
+                    <div className={`aspect-square flex items-center justify-center cursor-pointer hover:bg-[#0082E5]`}>
+                        <Gear/>
+                    </div>
+                </div>
                 {/* End: Sidebar bottom */}
             </div>
 
-            <div className="w-80 bg-white border-r">
+            <div className="h-screen w-80 max-w-80 bg-white flex flex-col border-r">
                 <Searchbar/>
                 {tabs[activeTab].component}
             </div>

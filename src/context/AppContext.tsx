@@ -1,8 +1,25 @@
 import React, {createContext, ReactNode, useState} from 'react';
 
-interface TabSelected {
-    type: "CHAT" | "CONTACT";
-    id: string | null | number;
+export interface TabSelected {
+    chat: {
+        tabId: string;
+        isSelected: boolean;
+    },
+    contact: {
+        tabId: number;
+        isSelected: boolean;
+    }
+}
+
+const initialState: TabSelected = {
+    chat: {
+        tabId: "",
+        isSelected: true,
+    },
+    contact: {
+        tabId: 0,
+        isSelected: false,
+    }
 }
 
 type AppContextType = {
@@ -17,7 +34,7 @@ interface Props {
 }
 
 const AppProvider = ({children}: Props) => {
-    const [tabSelected, setTabSelected] = useState<TabSelected>({type: "CHAT", id: null});
+    const [tabSelected, setTabSelected] = useState<TabSelected>(initialState);
 
     return (
         <AppContext.Provider value={{tabSelected, setTabSelected}}>
