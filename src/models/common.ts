@@ -21,3 +21,29 @@ export interface UserProfile {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface ChatRoom {
+    id: string;
+    lastMessage: LastMessage;
+    name: string;
+    avatar: string | null;
+    groupId: string | null;
+    status: string;
+    lastSeenMessageId: string | null;
+    isGroup: boolean;
+}
+
+export interface LastMessage {
+    messageId: string;
+    content: string;
+    sender: Sender;
+    createdAt: string;
+}
+
+export interface Sender {
+    id: string;
+    firstName: string;
+    lastName: string;
+    thumbnailAvatar: string | null;
+    gender: boolean;
+}

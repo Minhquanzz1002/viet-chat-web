@@ -1,6 +1,6 @@
-import {Handshake, UserRoundPlus, Users} from "lucide-react";
 import {ReactElement, useState} from "react";
 import useTabSelected from "../../../hooks/useTabSelected.ts";
+import {UserGroup, UserList, UserPlus} from "../../../components/Icons";
 
 interface Tab {
     icon: ReactElement;
@@ -9,15 +9,15 @@ interface Tab {
 
 const tabs : Tab[] = [
     {
-        icon: <Handshake />,
+        icon: <UserList />,
         label: 'Danh sách bạn bè'
     },
     {
-        icon: <Users />,
+        icon: <UserGroup />,
         label: 'Danh sách nhóm'
     },
     {
-        icon: <UserRoundPlus />,
+        icon: <UserPlus />,
         label: 'Lời mời kết bạn'
     }
 ]
@@ -28,7 +28,13 @@ const ContactMenu = () => {
 
     const onChangeTab = (index: number) => {
         setActiveTab(index);
-        setTabSelected({type: "CONTACT", id: index})
+        setTabSelected(prevState => ({
+            ...prevState,
+            contact: {
+                ...prevState.contact,
+                tabId: index,
+            }
+        }));
     }
 
     return (

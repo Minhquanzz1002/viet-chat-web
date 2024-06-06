@@ -17,6 +17,7 @@ const LoginForm = ({hidden = false, onForgotPasswordClick}: LoginFormProps) => {
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("")
 
+
     const {setToken} = useAuth();
 
     const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,8 +44,9 @@ const LoginForm = ({hidden = false, onForgotPasswordClick}: LoginFormProps) => {
         mutationFn: authApi.login,
         onSuccess: (tokens: Tokens) => {
             console.log(tokens);
-            Cookies.set('token', tokens.accessToken);
+            Cookies.set('token', tokens.accessToken, {expires: 1});
             setToken(tokens.accessToken);
+
         },
         onError: (error: ErrorResponse) => {
             setError(error.detail);
