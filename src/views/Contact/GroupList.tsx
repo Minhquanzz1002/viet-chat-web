@@ -1,4 +1,3 @@
-import React from 'react';
 import {UserGroup} from "../../components/Icons";
 
 const GroupList = () => {

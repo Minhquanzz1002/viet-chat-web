@@ -17,9 +17,9 @@ export interface UserProfile {
     thumbnailAvatar: string | null;
     coverImage: string | null;
     gender: boolean;
-    birthday: Date;
-    createdAt: Date;
-    updatedAt: Date;
+    birthday: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface ChatRoom {

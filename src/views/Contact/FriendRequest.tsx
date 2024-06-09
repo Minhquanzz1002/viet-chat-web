@@ -1,4 +1,3 @@
-import React from 'react';
 import {useAuth} from "../../hooks/useAuth.ts";
 import {UserPlus} from "../../components/Icons";
 

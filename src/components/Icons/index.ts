@@ -1,5 +1,8 @@
 import SquareCheck from "./SquareCheck.tsx";
 import CommentDots from "./CommentDots.tsx";
+import Camera from "./Camera.tsx";
+import Circle from "./Circle.tsx";
+import CircleDot from "./CircleDot.tsx";
 import AddressBook from "./AddressBook.tsx";
 import UserList from "./UserList.tsx";
 import UserPlus from "./UserPlus.tsx";
@@ -9,10 +12,15 @@ import Gear from "./Gear.tsx";
 import GroupPlus from "./GroupPlus.tsx";
 import ChevronLeft from "./ChevronLeft.tsx";
 import ChevronRight from "./ChevronRight.tsx";
+import PencilLine from "./PencilLine.tsx";
+import Image from "./Image.tsx";
 
 export {
     SquareCheck,
     CommentDots,
+    Camera,
+    Circle,
+    CircleDot,
     AddressBook,
     Gear,
     UserList,
@@ -22,5 +30,6 @@ export {
     GroupPlus,
     ChevronLeft,
     ChevronRight,
-
+    PencilLine,
+    Image,
 }

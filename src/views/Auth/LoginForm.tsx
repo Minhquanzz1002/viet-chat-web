@@ -6,6 +6,7 @@ import {useMutation} from "@tanstack/react-query";
 import {ErrorResponse, Tokens} from "../../models";
 import {useAuth} from "../../hooks/useAuth.ts";
 import Cookies from "js-cookie";
+import {useNavigate} from "react-router-dom";
 
 interface LoginFormProps {
     hidden: boolean;
@@ -17,7 +18,7 @@ const LoginForm = ({hidden = false, onForgotPasswordClick}: LoginFormProps) => {
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("")
 
-
+    const navigate = useNavigate();
     const {setToken} = useAuth();
 
     const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +47,7 @@ const LoginForm = ({hidden = false, onForgotPasswordClick}: LoginFormProps) => {
             console.log(tokens);
             Cookies.set('token', tokens.accessToken, {expires: 1});
             setToken(tokens.accessToken);
-
+            navigate('/');
         },
         onError: (error: ErrorResponse) => {
             setError(error.detail);

@@ -22,6 +22,8 @@ type AuthContextType = {
     setFriends: React.Dispatch<React.SetStateAction<Friend[] | null>>;
     setRequests: React.Dispatch<React.SetStateAction<Friend[] | null>>;
     setSentRequests: React.Dispatch<React.SetStateAction<Friend[] | null>>;
+
+    logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -108,8 +110,19 @@ const AuthProvider = ({children}: Props) => {
         enabled: token !== '',
     });
 
+    const logout = () => {
+        Cookies.remove('token');
+        setToken("");
+        setFriends(null);
+        setSentRequests(null);
+        setRequests(null);
+        setProfile(null);
+        setChatRooms(null);
+        setChatRoomSelected(null);
+    }
+
     return (
-        <AuthContext.Provider value={{token, setToken, profile, setProfile, chatRooms, setChatRooms, chatRoomSelected, setChatRoomSelected, friends, setFriends, requests, setRequests, isLoading, setIsLoading, sentRequests, setSentRequests}}>
+        <AuthContext.Provider value={{token, setToken, profile, setProfile, chatRooms, setChatRooms, chatRoomSelected, setChatRoomSelected, friends, setFriends, requests, setRequests, isLoading, setIsLoading, sentRequests, setSentRequests, logout}}>
             {children}
         </AuthContext.Provider>
     );

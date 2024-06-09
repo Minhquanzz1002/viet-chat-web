@@ -39,7 +39,7 @@ const Carousel = ({slides}: CarouselProps) => {
 
 
     return (
-        <div className="overflow-hidden relative pb-20">
+        <div className="overflow-hidden relative z-0 pb-20">
             <div className={`flex transition ease-out duration-400`}
                  style={{
                      transform: `translateX(-${current * 100}%)`
@@ -47,7 +47,7 @@ const Carousel = ({slides}: CarouselProps) => {
             >
                 {
                     slides.map((slide: Slide, index) => (
-                        <div className="w-full flex-shrink-0 flex flex-col justify-center items-center" key={"carousel-" + index}>
+                        <div className="w-full -z-1 flex-shrink-0 flex flex-col justify-center items-center" key={"carousel-" + index}>
                             <img src={slide.image} alt="Carousel" className="w-[380px] object-contain mt-5"/>
                             <div className="text-blue-600 font-semibold mt-5 text-xl">{slide.title}</div>
                             <div className="text-sm font-light">{slide.description}</div>

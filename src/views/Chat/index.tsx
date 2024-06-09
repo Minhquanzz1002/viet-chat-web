@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 
 const ChatView = () => {
     const [hidden, setHidden] = useState<boolean>(false);

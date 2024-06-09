@@ -41,7 +41,7 @@ const DefaultLayout = () => {
 
     useEffect(() => {
         document.title = "Viet Chat - " + profile?.firstName + " " + profile?.lastName;
-    }, []);
+    }, [profile]);
 
     return (
         <div className="h-screen flex flex-nowrap flex-row">

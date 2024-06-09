@@ -25,6 +25,7 @@ const initialState: TabSelected = {
 type AppContextType = {
     tabSelected: TabSelected;
     setTabSelected: React.Dispatch<React.SetStateAction<TabSelected>>;
+    resetAllState: () => void;
 }
 
 const AppContext = createContext<AppContextType>({} as AppContextType);
@@ -36,8 +37,12 @@ interface Props {
 const AppProvider = ({children}: Props) => {
     const [tabSelected, setTabSelected] = useState<TabSelected>(initialState);
 
+    const resetAllState = () => {
+        setTabSelected(initialState);
+    }
+
     return (
-        <AppContext.Provider value={{tabSelected, setTabSelected}}>
+        <AppContext.Provider value={{tabSelected, setTabSelected, resetAllState}}>
             {children}
         </AppContext.Provider>
     );

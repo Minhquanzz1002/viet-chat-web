@@ -1,11 +1,19 @@
 import axiosClient from "./axiosClient.ts";
 import {ChatRoom, UserProfile} from "../models";
-import {Friend} from "../models/profile.ts";
+import {Friend, UserInfoDTO} from "../models/profile.ts";
 
 const userApi = {
     async profile(token: string) : Promise<UserProfile> {
         const url = "/v1/users/profile";
         return await axiosClient.get(url, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+    },
+    async updateProfile(token: string, data: UserInfoDTO) : Promise<UserProfile>  {
+        const url = "/v1/users/profile";
+        return await axiosClient.put(url, data,{
             headers: {
                 Authorization: `Bearer ${token}`
             }
