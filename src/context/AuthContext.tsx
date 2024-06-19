@@ -4,6 +4,7 @@ import {useQuery} from "@tanstack/react-query";
 import userApi from "../api/userApi.ts";
 import Cookies from "js-cookie";
 import {Friend} from "../models/profile.ts";
+import {GroupDTO} from "../models/group.ts";
 
 type AuthContextType = {
     isLoading: boolean;
@@ -14,6 +15,7 @@ type AuthContextType = {
     friends: Friend[] | null;
     requests: Friend[] | null;
     sentRequests: Friend[] | null;
+    groups: GroupDTO[] | null;
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setToken: React.Dispatch<React.SetStateAction<string>>;
     setProfile: React.Dispatch<React.SetStateAction<UserProfile | null>>;
@@ -22,7 +24,7 @@ type AuthContextType = {
     setFriends: React.Dispatch<React.SetStateAction<Friend[] | null>>;
     setRequests: React.Dispatch<React.SetStateAction<Friend[] | null>>;
     setSentRequests: React.Dispatch<React.SetStateAction<Friend[] | null>>;
-
+    setGroups: React.Dispatch<React.SetStateAction<GroupDTO[] | null>>;
     logout: () => void;
 }
 
@@ -33,8 +35,6 @@ interface Props {
 }
 
 const AuthProvider = ({children}: Props) => {
-
-
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [token, setToken] = useState<string>("");
     const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -43,6 +43,7 @@ const AuthProvider = ({children}: Props) => {
     const [friends, setFriends] = useState<Friend[] | null>(null);
     const [requests, setRequests] = useState<Friend[] | null>(null);
     const [sentRequests, setSentRequests] = useState<Friend[] | null>(null);
+    const [groups, setGroups] = useState<GroupDTO[] | null>(null);
 
     useEffect(() => {
         const savedToken = Cookies.get("token");
@@ -110,6 +111,32 @@ const AuthProvider = ({children}: Props) => {
         enabled: token !== '',
     });
 
+    useQuery({
+        queryKey: ['sends'],
+        queryFn: async () => {
+            if (token !== '') {
+                return await userApi.getAllFriends(token, "sent").then((response) => {
+                    setSentRequests(response);
+                    return response;
+                })
+            }
+        },
+        enabled: token !== '',
+    });
+
+    useQuery({
+        queryKey: ['groups'],
+        queryFn: async () => {
+            if (token !== '') {
+                return await userApi.getAllGroups(token).then((response) => {
+                    setGroups(response);
+                    return response;
+                })
+            }
+        },
+        enabled: token !== '',
+    });
+
     const logout = () => {
         Cookies.remove('token');
         setToken("");
@@ -122,7 +149,7 @@ const AuthProvider = ({children}: Props) => {
     }
 
     return (
-        <AuthContext.Provider value={{token, setToken, profile, setProfile, chatRooms, setChatRooms, chatRoomSelected, setChatRoomSelected, friends, setFriends, requests, setRequests, isLoading, setIsLoading, sentRequests, setSentRequests, logout}}>
+        <AuthContext.Provider value={{token, setToken, profile, setProfile, chatRooms, setChatRooms, chatRoomSelected, setChatRoomSelected, friends, setFriends, requests, setRequests, isLoading, setIsLoading, sentRequests, setSentRequests, logout, groups, setGroups}}>
             {children}
         </AuthContext.Provider>
     );

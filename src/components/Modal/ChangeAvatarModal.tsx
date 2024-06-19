@@ -3,11 +3,10 @@ import {Avatar} from "../Avatar";
 import {useAuth} from "../../hooks/useAuth.ts";
 
 interface ChangeAvatarModalProps {
-    onChangeTab: (tab: number) => void;
     onChangeImage:  (image: string) => void;
 }
 
-const ChangeAvatarModal = ({onChangeTab, onChangeImage}: ChangeAvatarModalProps) => {
+const ChangeAvatarModal = ({onChangeImage}: ChangeAvatarModalProps) => {
     const {profile} = useAuth();
 
     return (
