@@ -1,3 +1,8 @@
+export interface UserInfoDTO {
+    firstName: string;
+    lastName: string;
+    gender: boolean;
+}
 interface Profile {
     id: string;
     firstName: string;

@@ -1,4 +1,4 @@
-import Carousel, {Slide} from "../../components/carousel";
+import Carousel, {Slide} from "../../components/Carousel";
 
 const WelcomeView = () => {
     const slides: Slide[] = [

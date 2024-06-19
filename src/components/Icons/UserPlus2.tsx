@@ -1,5 +1,3 @@
-import React from 'react';
-
 const UserPlus2 = () => {
     return (
         <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round"

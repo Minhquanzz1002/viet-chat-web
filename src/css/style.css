@@ -11,3 +11,26 @@ input:-webkit-autofill:active{
     background-image: url("../assets/background.svg");
     background-size: cover;
 }
+
+.fade-enter {
+    opacity: 0;
+    transition: opacity 300ms ease-out;
+}
+
+.fade-enter-active {
+    opacity: 1;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-out;
+}
+
+
+.clip-bottom {
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}

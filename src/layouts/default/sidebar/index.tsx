@@ -5,9 +5,8 @@ import Searchbar from "../searchbar";
 import TodoMenu from "../menu/TodoMenu.tsx";
 
 import {AddressBook, CommentDots, Gear, SquareCheck} from "../../../components/Icons";
-import {Avatar} from "../../../components/Avatar";
 import useTabSelected from "../../../hooks/useTabSelected.ts";
-import {useAuth} from "../../../hooks/useAuth.ts";
+import MenuModal from "../../../components/Modal/MenuModal.tsx";
 
 interface Tab {
     icon: ReactElement,
@@ -29,10 +28,9 @@ const tabs: Tab[] = [
     }
 ];
 const Sidebar = () => {
-    const {profile} = useAuth();
-
     const {setTabSelected} = useTabSelected();
     const [activeTab, setActiveTab] = useState<number>(0);
+
 
     const onClickTab = (index: number) => {
         setActiveTab(index);
@@ -71,11 +69,8 @@ const Sidebar = () => {
             <div className="h-screen w-16 bg-[#0091FF] flex flex-col justify-between">
                 {/* Start: Sidebar top */}
                 <div>
-                    <div className="flex justify-center mt-8 my-5">
-                        {
-                            profile?.thumbnailAvatar ? <Avatar src={profile.thumbnailAvatar} alt="avatar"/> :
-                                <Avatar>{profile?.lastName.charAt(0).toUpperCase()}</Avatar>
-                        }
+                    <div className="flex justify-center mt-8 my-5 relative">
+                        <MenuModal/>
                     </div>
                     {
                         tabs.map((tab: Tab, index: number) => (
