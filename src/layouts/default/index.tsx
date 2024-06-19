@@ -2,9 +2,9 @@ import Sidebar from "./sidebar";
 import useTabSelected from "../../hooks/useTabSelected.ts";
 import WelcomeView from "../../views/Welcome";
 import ChatView from "../../views/Chat";
-import {FriendList} from "../../views/Contact";
-import GroupList from "../../views/Contact/GroupList.tsx";
-import FriendRequest from "../../views/Contact/FriendRequest.tsx";
+import FriendList from "../../views/Contact/Friends";
+import GroupList from "../../views/Contact/Groups";
+import FriendRequest from "../../views/Contact/FriendRequests";
 import React, {useEffect, useState} from "react";
 import {useAuth} from "../../hooks/useAuth.ts";
 
@@ -41,7 +41,7 @@ const DefaultLayout = () => {
 
     useEffect(() => {
         document.title = "Viet Chat - " + profile?.firstName + " " + profile?.lastName;
-    }, []);
+    }, [profile]);
 
     return (
         <div className="h-screen flex flex-nowrap flex-row">

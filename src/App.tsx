@@ -29,7 +29,7 @@ function App() {
                     <Router/>
                 </AuthProvider>
             </AppProvider>
-            <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left"/>
+            <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right"/>
         </QueryClientProvider>
     )
 }

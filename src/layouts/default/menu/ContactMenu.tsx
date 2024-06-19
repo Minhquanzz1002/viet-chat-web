@@ -1,4 +1,4 @@
-import {ReactElement, useState} from "react";
+import {ReactElement} from "react";
 import useTabSelected from "../../../hooks/useTabSelected.ts";
 import {UserGroup, UserList, UserPlus} from "../../../components/Icons";
 
@@ -23,15 +23,16 @@ const tabs : Tab[] = [
 ]
 
 const ContactMenu = () => {
-    const {setTabSelected} = useTabSelected();
-    const [activeTab, setActiveTab] = useState<number>(0);
+    const {setTabSelected, tabSelected} = useTabSelected();
 
     const onChangeTab = (index: number) => {
-        setActiveTab(index);
         setTabSelected(prevState => ({
-            ...prevState,
+            chat: {
+                ...prevState.chat,
+                isSelected: false
+            },
             contact: {
-                ...prevState.contact,
+                isSelected: true,
                 tabId: index,
             }
         }));
@@ -41,7 +42,7 @@ const ContactMenu = () => {
         <div className="flex flex-col">
             {
                 tabs.map((tab: Tab, index: number) => (
-                    <div key={"contact-" + index} className={`flex flex-row justify-start items-center cursor-pointer px-4 h-14 ${activeTab === index ? 'bg-[#E5EFFF]' : 'hover:bg-[#F3F5F6]'}`} onClick={() => onChangeTab(index)}>
+                    <div key={"contact-" + index} className={`flex flex-row justify-start items-center cursor-pointer px-4 h-14 ${tabSelected.contact.tabId === index ? 'bg-[#E5EFFF]' : 'hover:bg-[#F3F5F6]'}`} onClick={() => onChangeTab(index)}>
                         {tab.icon}
                         <div className="px-4 font-semibold tracking-wide">{tab.label}</div>
                     </div>
