@@ -43,7 +43,7 @@ const MenuModal = () => {
 
     return (
         <React.Fragment>
-            <div className="cursor-pointer" onClick={() => setIsShowMenu(!isShowMenu)}>
+            <div className="cursor-pointer" title={profile?.firstName + " " + profile?.lastName} onClick={() => setIsShowMenu(!isShowMenu)}>
                 {
                     profile?.thumbnailAvatar ? <Avatar src={profile.thumbnailAvatar} alt="avatar"/> :
                         <Avatar>{profile?.lastName.charAt(0).toUpperCase()}</Avatar>

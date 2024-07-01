@@ -1,30 +1,60 @@
-# React + TypeScript + Vite
+# FRONTEND REACTJS FOR VIET CHAT
+Viet Chat is a real-time chat application inspired by Zalo.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Demo
+link
 
-Currently, two official plugins are available:
+## Screenshots
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Home
+![Home](/demo/home.png)
+- Chat room
+![Chat room](/demo/chat.png)
+- Friends
+![Friends](/demo/friends.png)
+- Groups
+![Groups](/demo/groups.png)
+- Friend request
+![Friend request](/demo/friend-request.png)
+- Profile
+![Profile](/demo/your-profile.png)
+- Create group
+![Create group](/demo/create-group.png)
+- Add friend
+![Add friend](/demo/add-friend.png)
+## Tech Stack
 
-## Expanding the ESLint configuration
+**Language:** ReactJS + Typescript + ViteJS
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+**CSS framework:** TailwindCSS
 
-- Configure the top-level `parserOptions` property like this:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/Minhquanzz1002/viet-chat-web
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
+## Authors
+
+- [@Minhquanzz1002](https://github.com/Minhquanzz1002)
