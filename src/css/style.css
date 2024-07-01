@@ -34,3 +34,30 @@ input:-webkit-autofill:active{
 .clip-bottom {
     clip-path: polygon(50% 0, 100% 100%, 0 100%);
 }
+
+[contentEditable=true]:empty:before {
+    content: attr(data-placeholder);
+    opacity: 0.5;
+}
+
+div, span {
+    @apply select-none;
+}
+
+.slide-enter {
+    transform: translateX(100%);
+}
+
+.slide-enter-active {
+    transform: translateX(0);
+    transition: transform .25s ease,opacity .2s ease
+}
+
+.slide-exit {
+    transform: translateX(0);
+}
+
+.slide-exit-active {
+    transform: translateX(-100%);
+    transition: transform .25s ease,opacity .2s ease
+}

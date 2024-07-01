@@ -2,7 +2,7 @@ interface GroupPlusProps {
     height?: number,
     width?: number,
 }
-const GroupPlus = ({height = 25, width = 25} : GroupPlusProps) => {
+const GroupPlus = ({height = 22, width = 22} : GroupPlusProps) => {
     return (
         <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 1024 1024" height={height} width={width}
              xmlns="http://www.w3.org/2000/svg">

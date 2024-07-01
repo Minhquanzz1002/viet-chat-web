@@ -30,7 +30,6 @@ export interface ChatRoom {
     groupId: string | null;
     status: string;
     lastSeenMessageId: string | null;
-    isGroup: boolean;
 }
 
 export interface LastMessage {

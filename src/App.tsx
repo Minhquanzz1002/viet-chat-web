@@ -6,8 +6,14 @@ import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {Bounce, ToastContainer} from "react-toastify";
 import AuthProvider from "./context/AuthContext.tsx";
 import AppProvider from "./context/AppContext.tsx";
+import 'dayjs/locale/vi';
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import WebsocketProvider from "./context/WebsocketContext.tsx";
 
 function App() {
+    dayjs.locale('vi');
+    dayjs.extend(relativeTime);
     const queryClient = new QueryClient();
     return (
         <QueryClientProvider client={queryClient}>
@@ -26,7 +32,9 @@ function App() {
             />
             <AppProvider>
                 <AuthProvider>
-                    <Router/>
+                    <WebsocketProvider>
+                        <Router/>
+                    </WebsocketProvider>
                 </AuthProvider>
             </AppProvider>
             <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right"/>

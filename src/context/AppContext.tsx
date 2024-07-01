@@ -24,7 +24,9 @@ const initialState: TabSelected = {
 
 type AppContextType = {
     tabSelected: TabSelected;
+    isOpenSearchMenu: boolean;
     setTabSelected: React.Dispatch<React.SetStateAction<TabSelected>>;
+    setIsOpenSearchMenu: React.Dispatch<React.SetStateAction<boolean>>;
     resetAllState: () => void;
 }
 
@@ -36,13 +38,14 @@ interface Props {
 
 const AppProvider = ({children}: Props) => {
     const [tabSelected, setTabSelected] = useState<TabSelected>(initialState);
+    const [isOpenSearchMenu, setIsOpenSearchMenu] = useState<boolean>(false);
 
     const resetAllState = () => {
         setTabSelected(initialState);
     }
 
     return (
-        <AppContext.Provider value={{tabSelected, setTabSelected, resetAllState}}>
+        <AppContext.Provider value={{tabSelected, setTabSelected, resetAllState, isOpenSearchMenu, setIsOpenSearchMenu}}>
             {children}
         </AppContext.Provider>
     );

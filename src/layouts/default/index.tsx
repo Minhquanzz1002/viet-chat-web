@@ -44,7 +44,7 @@ const DefaultLayout = () => {
     }, [profile]);
 
     return (
-        <div className="h-screen flex flex-nowrap flex-row">
+        <div className="h-screen w-screen max-w-full flex flex-nowrap flex-row">
             <Sidebar/>
             <Component/>
         </div>
