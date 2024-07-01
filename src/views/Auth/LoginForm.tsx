@@ -66,6 +66,12 @@ const LoginForm = ({hidden = false, onForgotPasswordClick}: LoginFormProps) => {
         loginAsync({phone: phone, password: password});
     }
 
+    const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            onLogin();
+        }
+    };
+
     return (
         <div role="tabpanel"
              className={`p-8 flex flex-col gap-3 ${hidden && 'hidden'}`}>
@@ -73,7 +79,7 @@ const LoginForm = ({hidden = false, onForgotPasswordClick}: LoginFormProps) => {
                        onChange={onChangePhone}>
                 <Smartphone size={20} color="#7d7d7d"/>
             </InputIcon>
-            <InputIcon placeholder="Mật khẩu" type="password" id="password" name="password" value={password}
+            <InputIcon onKeyDown={onKeyDown} placeholder="Mật khẩu" type="password" id="password" name="password" value={password}
                        onChange={onChangePassword}>
                 <Lock size={20} color="#7d7d7d"/>
             </InputIcon>

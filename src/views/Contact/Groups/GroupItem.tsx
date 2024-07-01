@@ -3,6 +3,7 @@ import {Ellipsis} from "../../../components/Icons";
 import {GroupDTO} from "../../../models/group.ts";
 import useTabSelected from "../../../hooks/useTabSelected.ts";
 import React, {useEffect, useRef, useState} from "react";
+import ModalGroupMember from "../../../components/Modals/ModalGroupMember.tsx";
 
 interface GroupItemProps {
     group: GroupDTO
@@ -12,9 +13,15 @@ interface GroupItemProps {
 const GroupItem = ({group, showDivider}: GroupItemProps) => {
     const {setTabSelected} = useTabSelected();
     const [isShowMenu, setIsShowMenu] = useState<boolean>(false);
+    const [isShowModalGroupMember, setIsShowModalGroupMember] = useState<boolean>(false);
     const [menuPosition, setMenuPosition] = useState<{ top: number, right: number }>({ top: 0, right: 48 });
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
+
+    const onClickShowModalGroupMember = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        setIsShowModalGroupMember(true);
+    }
 
     const onClickGroupChat = () => {
         setTabSelected(prevState => ({
@@ -83,6 +90,10 @@ const GroupItem = ({group, showDivider}: GroupItemProps) => {
 
     return (
         <React.Fragment>
+            {
+                isShowModalGroupMember && <ModalGroupMember onClose={() => setIsShowModalGroupMember(false)}/>
+            }
+
             <div className='hover:bg-[#F3F5F6] cursor-pointer flex flex-row px-4 h-[72px]' onClick={onClickGroupChat} onContextMenu={onRightClickShowMenu}>
                 <div className='flex-1 flex flex-row items-center'>
                     <div className="w-11 h-11">
@@ -97,8 +108,8 @@ const GroupItem = ({group, showDivider}: GroupItemProps) => {
                                 className={`w-full ml-4 py-3 flex flex-col justify-evenly h-full ${showDivider && 'border-b-2'}`}>
                                 <div className="font-semibold">{group.name}</div>
                                 <div
-                                    className="text-xs text-gray-500 font-semibold w-fit hover:text-blue-600 hover:underline">274
-                                    thành viên
+                                    className="text-xs text-gray-500 font-semibold w-fit hover:text-blue-600 hover:underline" onClick={onClickShowModalGroupMember}>
+                                    {`${group.members.length} thành viên`}
                                 </div>
                             </div>
                         )

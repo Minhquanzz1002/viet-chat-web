@@ -1,7 +1,7 @@
 
-const Circle = ({className = ""} : {className?: string}) => {
+const Circle = ({className = "", size = 20} : {className?: string; size?: number}) => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20"
+        <svg xmlns="http://www.w3.org/2000/svg" height={size} width={size}
              fill="currentColor"
              className={className}
              viewBox="0 0 512 512">

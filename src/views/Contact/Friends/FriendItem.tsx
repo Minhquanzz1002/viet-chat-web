@@ -3,8 +3,8 @@ import {Friend} from "../../../models/profile.ts";
 import {Ellipsis} from "../../../components/Icons";
 import useTabSelected from "../../../hooks/useTabSelected.ts";
 import React, {useEffect, useRef, useState} from "react";
-import ProfileFriendModal from "../../../components/Modal/ProfileFriendModal.tsx";
-import EditDisplayNameModal from "../../../components/Modal/EditDisplayNameModal.tsx";
+import ProfileFriendModal from "../../../components/Modals/ProfileFriendModal.tsx";
+import EditDisplayNameModal from "../../../components/Modals/EditDisplayNameModal.tsx";
 
 interface FriendItemProps {
     friend: Friend;

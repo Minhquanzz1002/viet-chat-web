@@ -2,34 +2,9 @@ import {useAuth} from "../../../hooks/useAuth.ts";
 import {UserList} from "../../../components/Icons";
 import FriendItem from "./FriendItem.tsx";
 import {Friend} from "../../../models/profile.ts";
-import {useEffect, useState} from "react";
-
-interface FriendsByLetter {
-    [letter: string]: Friend[];
-}
 
 const FriendList = () => {
-    const {friends} = useAuth();
-    const [friendsByLetter, setFriendsByLetter] = useState<FriendsByLetter>({});
-
-    useEffect(() => {
-        if (friends) {
-            const sortedFriends = friends.sort((a, b) => {
-                if (a.profile.firstName.charAt(0) < b.profile.firstName.charAt(0)) return -1;
-                if (a.profile.firstName.charAt(0) > b.profile.firstName.charAt(0)) return 1;
-                return 0;
-            });
-            const letters: FriendsByLetter = {};
-            sortedFriends.forEach((friend) => {
-                const firstLetter = friend.profile.firstName.charAt(0).toUpperCase();
-                if (!letters[firstLetter]) {
-                    letters[firstLetter] = [];
-                }
-                letters[firstLetter].push(friend);
-            });
-            setFriendsByLetter(letters);
-        }
-    }, [friends]);
+    const {friends, friendsByLetter} = useAuth();
 
     return (
         <div className="h-screen flex-1 flex flex-col">
@@ -48,7 +23,9 @@ const FriendList = () => {
                                         <div className="px-4 my-3 font-semibold">{letter}</div>
                                         {
                                             friendsArray.map((friend: Friend, index: number) => (
-                                                <FriendItem friend={friend} showDivider={index !== friendsArray.length - 1} key={index}/>
+                                                <FriendItem friend={friend}
+                                                            showDivider={index !== friendsArray.length - 1}
+                                                            key={index}/>
                                             ))
                                         }
                                     </div>

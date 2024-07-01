@@ -39,7 +39,7 @@ const ContactMenu = () => {
     }
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col border-t">
             {
                 tabs.map((tab: Tab, index: number) => (
                     <div key={"contact-" + index} className={`flex flex-row justify-start items-center cursor-pointer px-4 h-14 ${tabSelected.contact.tabId === index ? 'bg-[#E5EFFF]' : 'hover:bg-[#F3F5F6]'}`} onClick={() => onChangeTab(index)}>

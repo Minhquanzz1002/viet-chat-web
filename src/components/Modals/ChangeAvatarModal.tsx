@@ -10,7 +10,7 @@ const ChangeAvatarModal = ({onChangeImage}: ChangeAvatarModalProps) => {
     const {profile} = useAuth();
 
     return (
-        <div className="w-full px-4 py-3">
+        <div className="w-full px-4 py-3 stack-page-slide-in-left-appear-active">
             <label
                 className="bg-[#C7E0FF] rounded py-1.5 w-full text-blue-600 font-semibold cursor-pointer hover:opacity-90 flex items-center justify-center"
                 htmlFor="avatarUpload"

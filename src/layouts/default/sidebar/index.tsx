@@ -6,29 +6,35 @@ import TodoMenu from "../menu/TodoMenu.tsx";
 
 import {AddressBook, CommentDots, Gear, SquareCheck} from "../../../components/Icons";
 import useTabSelected from "../../../hooks/useTabSelected.ts";
-import MenuModal from "../../../components/Modal/MenuModal.tsx";
+import MenuModal from "../../../components/Modals/MenuModal.tsx";
+import useSearch from "../../../hooks/useSearch.tsx";
 
 interface Tab {
-    icon: ReactElement,
-    component: ReactElement
+    title: string;
+    icon: ReactElement;
+    component: ReactElement;
 }
 
 const tabs: Tab[] = [
     {
+        title: "Tin nhắn",
         icon: <CommentDots/>,
         component: <ChatMenu/>
     },
     {
+        title: "Danh bạ",
         icon: <AddressBook/>,
         component: <ContactMenu/>
     },
     {
+        title: "To-Do",
         icon: <SquareCheck/>,
         component: <TodoMenu/>
     }
 ];
 const Sidebar = () => {
     const {setTabSelected} = useTabSelected();
+    const {isOpenSearchMenu} = useSearch();
     const [activeTab, setActiveTab] = useState<number>(0);
 
 
@@ -75,6 +81,7 @@ const Sidebar = () => {
                     {
                         tabs.map((tab: Tab, index: number) => (
                             <div key={index}
+                                 title={tab.title}
                                  className={`aspect-square flex items-center justify-center cursor-pointer ${activeTab === index ? 'bg-[#006edc]' : 'hover:bg-[#0082E5]'}`}
                                  onClick={() => onClickTab(index)}>
                                 {
@@ -88,7 +95,7 @@ const Sidebar = () => {
 
                 {/* Start: Sidebar bottom */}
                 <div>
-                    <div className={`aspect-square flex items-center justify-center cursor-pointer hover:bg-[#0082E5]`}>
+                    <div className={`aspect-square flex items-center justify-center cursor-pointer hover:bg-[#0082E5]`} title="Cài đặt">
                         <Gear/>
                     </div>
                 </div>
@@ -97,7 +104,15 @@ const Sidebar = () => {
 
             <div className="h-screen w-80 max-w-80 bg-white flex flex-col border-r">
                 <Searchbar/>
-                {tabs[activeTab].component}
+                {
+                    isOpenSearchMenu ? (
+                        <div className="">
+                            <div className="px-4">
+                                Sắp ra mắt
+                            </div>
+                        </div>
+                    ) : (tabs[activeTab].component)
+                }
             </div>
 
         </nav>

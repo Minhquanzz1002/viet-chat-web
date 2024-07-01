@@ -5,10 +5,10 @@ import ChatTab from "../../../components/Tabs/ChatTab.tsx";
 const ChatMenu = () => {
     const {chatRooms} = useAuth();
     return (
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto scrollbar-thin border-t">
             {
-                chatRooms?.map((chatRoom: ChatRoom, index: number) => (
-                    <ChatTab chatRoom={chatRoom} key={index}/>
+                chatRooms?.map((chatRoom: ChatRoom) => (
+                    <ChatTab chatRoom={chatRoom} key={"tab-chat-" + chatRoom.id}/>
                 ))
             }
         </div>
