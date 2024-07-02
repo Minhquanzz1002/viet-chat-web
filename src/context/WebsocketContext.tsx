@@ -4,6 +4,7 @@ import {useAuth} from "../hooks/useAuth.ts";
 import SockJS from "sockjs-client";
 import {Message} from "../models/chat.ts";
 import {LastMessage} from "../models";
+import useTabSelected from "../hooks/useTabSelected.ts";
 
 type WebsocketContextType = {
     client: Client | null;
@@ -16,8 +17,9 @@ interface Props {
 }
 
 const WebsocketProvider = ({children}: Props) => {
-    const {token, chatRooms, setChatRooms} = useAuth();
+    const {token, chatRooms, setChatRooms, setMessages} = useAuth();
     const [client, setClient] = useState<Client | null>(null);
+    const {tabSelected} = useTabSelected();
 
     useEffect(() => {
         if (token !== '') {
@@ -60,6 +62,9 @@ const WebsocketProvider = ({children}: Props) => {
                 content: message.content,
                 sender: message.sender,
                 createdAt: message.createdAt
+            }
+            if (tabSelected.chat.tabId === chatRoomId) {
+                setMessages(prevState => [...prevState, message]);
             }
             if (chatRooms) {
                 setChatRooms((prevState) => {

@@ -3,7 +3,8 @@ import {
     Bell,
     Eye,
     GroupPlus,
-    Link, LogOut,
+    Link,
+    LogOut,
     PencilLine,
     Pin,
     Settings,
@@ -13,12 +14,13 @@ import {
 } from "../../components/Icons";
 import React, {useState} from "react";
 import {ChatDTO} from "../../models/chat.ts";
+import Skeleton from "../../components/Skeleton";
 
 interface ChatInfoProps {
     chatRoom: ChatDTO | null;
 }
 
-const ChatInfo = ({chatRoom} : ChatInfoProps) => {
+const ChatInfo = ({chatRoom}: ChatInfoProps) => {
     const [isChatPinned, setIsChatPinned] = useState<boolean>(false);
     const [isChatMuted, setIsChatMuted] = useState<boolean>(false);
     return (
@@ -34,11 +36,15 @@ const ChatInfo = ({chatRoom} : ChatInfoProps) => {
                                     src={chatRoom.avatar} alt="Avatar"/> :
                                 <Avatar>{chatRoom?.name.charAt(0).toUpperCase()}</Avatar>
                         }
-                        <div className="font-medium text-lg flex items-center ">
-                            {chatRoom?.name}
-                            <button
-                                className="ml-2 rounded-full hover:bg-gray-300 bg-gray-100 p-1"
-                            ><PencilLine size={15}/></button>
+                        <div className="font-medium text-lg flex items-center mt-3">
+                            {chatRoom?.name ? (
+                                <>
+                                    chatRoom.name
+                                    <button
+                                        className="ml-2 rounded-full hover:bg-gray-300 bg-gray-100 p-1"
+                                    ><PencilLine size={15}/></button>
+                                </>
+                            ) : <Skeleton/>}
                         </div>
                         <div className={`flex justify-center w-full py-4`}>
                             <div className="flex flex-col items-center gap-y-2 h-[84px] w-[78px]">
@@ -55,7 +61,8 @@ const ChatInfo = ({chatRoom} : ChatInfoProps) => {
                                     className={`rounded-full ${isChatPinned ? 'bg-blue-100 hover:bg-blue-200' : 'bg-gray-200 hover:bg-gray-300'} w-8 h-8 inline-flex items-center justify-center cursor-pointer`}>
                                     <Pin className={isChatPinned ? 'text-blue-600' : ''} isOn={!isChatPinned}/>
                                 </div>
-                                <div className="text-xs text-center ">{isChatPinned ? 'Bỏ ghim' : 'Ghim'} hội<br/> thoại</div>
+                                <div className="text-xs text-center ">{isChatPinned ? 'Bỏ ghim' : 'Ghim'} hội<br/> thoại
+                                </div>
                             </div>
                             {
                                 chatRoom?.group ? (

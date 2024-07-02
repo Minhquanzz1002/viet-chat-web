@@ -5,6 +5,9 @@ import userApi from "../api/userApi.ts";
 import Cookies from "js-cookie";
 import {Friend} from "../models/profile.ts";
 import {GroupDTO} from "../models/group.ts";
+import {Message} from "../models/chat.ts";
+import chatApi from "../api/chatApi.ts";
+import useTabSelected from "../hooks/useTabSelected.ts";
 
 type AuthContextType = {
     isLoading: boolean;
@@ -17,6 +20,7 @@ type AuthContextType = {
     sentRequests: Friend[] | null;
     groups: GroupDTO[] | null;
     friendsByLetter: FriendsByLetter;
+    messages: Message[];
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
     setToken: React.Dispatch<React.SetStateAction<string>>;
     setProfile: React.Dispatch<React.SetStateAction<UserProfile | null>>;
@@ -27,6 +31,7 @@ type AuthContextType = {
     setSentRequests: React.Dispatch<React.SetStateAction<Friend[] | null>>;
     setGroups: React.Dispatch<React.SetStateAction<GroupDTO[] | null>>;
     setFriendsByLetter: React.Dispatch<React.SetStateAction<FriendsByLetter>>;
+    setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
     logout: () => void;
     queryClient: QueryClient;
 }
@@ -42,6 +47,7 @@ interface Props {
 }
 
 const AuthProvider = ({children}: Props) => {
+    const {tabSelected} = useTabSelected();
     const queryClient = useQueryClient();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [token, setToken] = useState<string>("");
@@ -53,6 +59,7 @@ const AuthProvider = ({children}: Props) => {
     const [sentRequests, setSentRequests] = useState<Friend[] | null>(null);
     const [groups, setGroups] = useState<GroupDTO[] | null>(null);
     const [friendsByLetter, setFriendsByLetter] = useState<FriendsByLetter>({});
+    const [messages, setMessages] = useState<Message[]>([]);
 
     useEffect(() => {
         if (friends) {
@@ -177,8 +184,21 @@ const AuthProvider = ({children}: Props) => {
         setChatRoomSelected(null);
     }
 
+    useQuery({
+        queryKey: ['messages', tabSelected.chat.tabId],
+        queryFn: async () => {
+            if (token !== '') {
+                return await chatApi.getMessages(token, tabSelected.chat.tabId).then((response) => {
+                    setMessages(response.content);
+                    return response;
+                })
+            }
+        },
+        enabled: token !== '' && tabSelected.chat.tabId !== "",
+    });
+
     return (
-        <AuthContext.Provider value={{queryClient, token, setToken, profile, setProfile, chatRooms, setChatRooms, chatRoomSelected, setChatRoomSelected, friends, setFriends, requests, setRequests, isLoading, setIsLoading, sentRequests, setSentRequests, logout, groups, setGroups, friendsByLetter, setFriendsByLetter}}>
+        <AuthContext.Provider value={{messages, queryClient, token, setToken, profile, setProfile, chatRooms, setChatRooms, chatRoomSelected, setChatRoomSelected, friends, setFriends, requests, setRequests, isLoading, setIsLoading, sentRequests, setSentRequests, logout, groups, setGroups, friendsByLetter, setFriendsByLetter, setMessages}}>
             {children}
         </AuthContext.Provider>
     );
