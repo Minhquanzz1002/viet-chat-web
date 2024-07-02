@@ -14,6 +14,8 @@ link
 ![Friends](/demo/friends.png)
 - Groups
 ![Groups](/demo/groups.png)
+- Group members
+![Group members](/demo/group-members.png)
 - Friend request
 ![Friend request](/demo/friend-request.png)
 - Profile

@@ -16,10 +16,19 @@ export interface Profile {
     updatedAt: string;
 }
 
+export enum FriendStatus {
+    BLOCK = 'BLOCK',
+    FRIEND_REQUEST = 'FRIEND_REQUEST',
+    STRANGER = 'STRANGER',
+    PENDING = 'PENDING',
+    BLOCKED = 'BLOCKED',
+    FRIEND = 'FRIEND'
+}
+
 export interface Friend {
     profile: Profile;
     displayName: string;
-    status: "BLOCK" | "FRIEND_REQUEST" | "STRANGER" | "PENDING" | "BLOCKED" | "FRIEND";
+    status: FriendStatus;
     chatId: string;
     isBestFriend: boolean;
 }
@@ -28,7 +37,7 @@ export interface OtherUserInfoDTO {
     id: string;
     phone: string;
     displayName: string;
-    status: "BLOCK" | "FRIEND_REQUEST" | "STRANGER" | "PENDING" | "BLOCKED" | "FRIEND";
+    status: FriendStatus;
     firstName: string;
     lastName: string;
     bio: string;

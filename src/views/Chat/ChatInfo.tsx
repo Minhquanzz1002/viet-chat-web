@@ -39,7 +39,7 @@ const ChatInfo = ({chatRoom}: ChatInfoProps) => {
                         <div className="font-medium text-lg flex items-center mt-3">
                             {chatRoom?.name ? (
                                 <>
-                                    chatRoom.name
+                                    {chatRoom.name}
                                     <button
                                         className="ml-2 rounded-full hover:bg-gray-300 bg-gray-100 p-1"
                                     ><PencilLine size={15}/></button>
