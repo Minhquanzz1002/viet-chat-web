@@ -1,4 +1,4 @@
-import {BrowserRouter, HashRouter, Route, Routes} from "react-router-dom";
+import {HashRouter, Route, Routes} from "react-router-dom";
 import AuthLayout from "../layouts/auth";
 import LoginPage from "../pages/Login";
 import PublicRouter from "./PublicRouter.tsx";
