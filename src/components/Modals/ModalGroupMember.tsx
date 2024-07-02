@@ -26,9 +26,9 @@ const ModalGroupMember = ({onClose}: ModalGroupMemberProps) => {
                         classNames="slide"
                         timeout={250}
                     >
-                        <div>
+                        <div className="h-full w-full">
                             {
-                                activeTab === 0 && <ModalBodyGroupMember onClose={onClose}/>
+                                activeTab === 0 && <ModalBodyGroupMember/>
                             }
                         </div>
                     </CSSTransition>

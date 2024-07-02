@@ -40,7 +40,7 @@ const GroupList = () => {
             </div>
             {
                 groups && groups.length > 0 ? (
-                    <div className='bg-neutral-100 p-4 w-full overflow-auto flex-1'>
+                    <div className='bg-neutral-100 p-4 w-full overflow-auto scrollbar-thin flex-1'>
                         <div className='font-medium pb-4'>{`Bạn bè (${groups.length})`}</div>
                         <div className='bg-white h-fit rounded py-4'>
                             {

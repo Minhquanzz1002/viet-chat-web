@@ -14,7 +14,7 @@ const FriendList = () => {
             </div>
             {
                 friends && friends.length > 0 ? (
-                    <div className='bg-neutral-100 p-4 w-full overflow-auto flex-1'>
+                    <div className='bg-neutral-100 p-4 w-full overflow-auto scrollbar-thin flex-1'>
                         <div className='font-medium pb-4'>{`Bạn bè (${friends.length})`}</div>
                         <div className='bg-white h-fit rounded py-4'>
                             {

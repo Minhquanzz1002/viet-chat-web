@@ -4,6 +4,7 @@ import React from "react";
 import {Download, Like, Quote} from "../Icons";
 import AttachmentViewer from "./AttachmentViewer.tsx";
 import {formatFileSize} from "../../utils/fileUtils.ts";
+import axios from "axios";
 
 interface MyMessageProps {
     message: Message;
@@ -11,6 +12,25 @@ interface MyMessageProps {
 }
 
 const MyMessage = ({message, onReplyMessage}: MyMessageProps) => {
+
+    const onClickDownFile = async () => {
+        if (message.attachments) {
+            try {
+                const response = await axios.get(message.attachments[0].url, {responseType: 'blob'});
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = message.attachments[0].filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.log('Error');
+            }
+        }
+    }
+
     return (
         <div className="flex justify-end w-full group/container-msg gap-x-2">
             <div className="w-max-[25%] hidden group-hover/container-msg:inline-block self-end">
@@ -61,7 +81,8 @@ const MyMessage = ({message, onReplyMessage}: MyMessageProps) => {
                                     </div>
                                     <div className="self-end">
                                         <div
-                                            className="bg-white p-0.5 rounded inline-flex items-center justify-center cursor-pointer"
+                                            onClick={onClickDownFile}
+                                            className="bg-white p-0.5 rounded inline-flex items-center justify-center cursor-pointer border"
                                             title="Tải về máy">
                                             <Download/>
                                         </div>
