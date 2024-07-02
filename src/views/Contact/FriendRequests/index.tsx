@@ -19,7 +19,7 @@ const FriendRequest = () => {
                         (!requests || requests.length === 0) ? (
                             <div className="px-4 bg-white py-4 rounded">Bạn ko có lời mời nào</div>
                         ) : (
-                            <div className="grid grid-cols-3 gap-3">
+                            <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
                                 {
                                     requests.map((request: Friend, index: number) => (
                                         <RequestItem request={request} key={"request-" + index}/>
@@ -36,7 +36,7 @@ const FriendRequest = () => {
                         (!sentRequests || sentRequests.length === 0) ? (
                             <div className="px-4 bg-white py-4 rounded">Bạn ko có lời mời nào</div>
                         ) : (
-                            <div className="grid grid-cols-3 gap-3">
+                            <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
                                 {
                                     sentRequests.map((request: Friend, index: number) => (
                                         <SentRequestItem request={request} key={"request-" + index}/>
