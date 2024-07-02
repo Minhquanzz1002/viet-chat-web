@@ -13,14 +13,14 @@ interface GroupItemProps {
 const GroupItem = ({group, showDivider}: GroupItemProps) => {
     const {setTabSelected} = useTabSelected();
     const [isShowMenu, setIsShowMenu] = useState<boolean>(false);
-    const [isShowModalGroupMember, setIsShowModalGroupMember] = useState<boolean>(false);
-    const [menuPosition, setMenuPosition] = useState<{ top: number, right: number }>({ top: 0, right: 48 });
+    const [groupIdSelected, setGroupIdSelected] = useState<string>("");
+    const [menuPosition, setMenuPosition] = useState<{ top: number, right: number }>({top: 0, right: 48});
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
-    const onClickShowModalGroupMember = (e: React.MouseEvent<HTMLDivElement>) => {
+    const onClickShowModalGroupMember = (e: React.MouseEvent<HTMLDivElement>, groupId: string) => {
         e.stopPropagation();
-        setIsShowModalGroupMember(true);
+        setGroupIdSelected(groupId)
     }
 
     const onClickGroupChat = () => {
@@ -91,10 +91,12 @@ const GroupItem = ({group, showDivider}: GroupItemProps) => {
     return (
         <React.Fragment>
             {
-                isShowModalGroupMember && <ModalGroupMember onClose={() => setIsShowModalGroupMember(false)}/>
+                groupIdSelected &&
+                <ModalGroupMember onClose={() => setGroupIdSelected("")} groupId={groupIdSelected}/>
             }
 
-            <div className='hover:bg-[#F3F5F6] cursor-pointer flex flex-row px-4 h-[72px]' onClick={onClickGroupChat} onContextMenu={onRightClickShowMenu}>
+            <div className='hover:bg-[#F3F5F6] cursor-pointer flex flex-row px-4 h-[72px]' onClick={onClickGroupChat}
+                 onContextMenu={onRightClickShowMenu}>
                 <div className='flex-1 flex flex-row items-center'>
                     <div className="w-11 h-11">
                         {
@@ -108,7 +110,8 @@ const GroupItem = ({group, showDivider}: GroupItemProps) => {
                                 className={`w-full ml-4 py-3 flex flex-col justify-evenly h-full ${showDivider && 'border-b-2'}`}>
                                 <div className="font-semibold">{group.name}</div>
                                 <div
-                                    className="text-xs text-gray-500 font-semibold w-fit hover:text-blue-600 hover:underline" onClick={onClickShowModalGroupMember}>
+                                    className="text-xs text-gray-500 font-semibold w-fit hover:text-blue-600 hover:underline"
+                                    onClick={(e) => onClickShowModalGroupMember(e, group.id)}>
                                     {`${group.members.length} thành viên`}
                                 </div>
                             </div>
@@ -132,7 +135,8 @@ const GroupItem = ({group, showDivider}: GroupItemProps) => {
                         className={`absolute rounded shadow-xl bg-white border z-20 py-2 w-40 text-sm`}>
                         <h3 className="px-2 h-9 flex items-center hover:bg-gray-100 cursor-pointer">Phân loại</h3>
                         <div className="h-[1px] bg-gray-200 mx-2 my-1"></div>
-                        <h3 className="text-red-600 px-2 h-9 flex items-center hover:bg-gray-100 cursor-pointer">Rời nhóm</h3>
+                        <h3 className="text-red-600 px-2 h-9 flex items-center hover:bg-gray-100 cursor-pointer">Rời
+                            nhóm</h3>
                     </div>
                 )
             }

@@ -1,4 +1,4 @@
-import {Profile} from "./profile.ts";
+import {FriendStatus, Profile} from "./profile.ts";
 
 export type GroupDTO = {
     id: string
@@ -10,10 +10,21 @@ export type GroupDTO = {
     updatedAt: string;
 }
 
+export enum GroupMemberRole {
+    GROUP_LEADER = 'GROUP_LEADER',
+    DEPUTY_GROUP_LEADER = 'DEPUTY_GROUP_LEADER',
+    MEMBER = 'MEMBER'
+}
+
 interface GroupMember {
     profile: Profile;
-    role: 'GROUP_LEADER' | 'DEPUTY_GROUP_LEADER' | 'MEMBER';
+    role: GroupMemberRole;
     joinMethod: string;
+}
+
+export interface GroupMemberDTO extends GroupMember {
+    status: FriendStatus;
+    displayName: string;
 }
 
 export interface GroupRequestCreateDTO {
