@@ -23,7 +23,7 @@ const LoginForm = ({hidden = false, onForgotPasswordClick}: LoginFormProps) => {
 
     const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
         setError("");
-        const newPhone = e.target.value;
+        const newPhone = e.target.value.trim();
         if (newPhone === '' || /^\d+$/.test(newPhone)) {
             setPhone(newPhone);
         }

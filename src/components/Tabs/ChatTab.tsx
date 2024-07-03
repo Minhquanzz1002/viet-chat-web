@@ -78,12 +78,11 @@ const ChatTab = ({chatRoom}: ChatTabProps) => {
 
 
     return (
-        <div className={`px-4 flex flex-row gap-3 h-[74px] group items-center w-full cursor-pointer ${tabSelected.chat.tabId === chatRoom.id ? 'bg-blue-100': 'hover:bg-[#F3F5F6]'}`} onClick={onClickTab}>
+        <div
+            className={`px-4 flex flex-row gap-3 h-[74px] group items-center w-full cursor-pointer ${tabSelected.chat.tabId === chatRoom.id ? 'bg-blue-100' : 'hover:bg-[#F3F5F6]'}`}
+            onClick={onClickTab}>
             <div>
-                {
-                    chatRoom?.avatar ? <Avatar src={chatRoom.avatar} alt="avatar"/> :
-                        <Avatar>{chatRoom?.name.charAt(0).toUpperCase()}</Avatar>
-                }
+                <Avatar src={chatRoom.avatar} name={chatRoom.name}/>
             </div>
             <div className="flex-1 flex flex-col">
                 <div className="w-[220.8px] inline-flex gap-x-2 justify-between">
@@ -92,7 +91,9 @@ const ChatTab = ({chatRoom}: ChatTabProps) => {
                         <div className="text-xs">
                             <div className="group-hover:hidden">{messageTime}</div>
                             <div className="group-hover:block hidden">
-                                <button className="flex h-full p-1  justify-center items-center rounded hover:bg-[#DFE2E7]" title="Thêm">
+                                <button
+                                    className="flex h-full p-1  justify-center items-center rounded hover:bg-[#DFE2E7]"
+                                    title="Thêm">
                                     <Ellipsis/>
                                 </button>
                             </div>

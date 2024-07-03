@@ -4,17 +4,20 @@ import RegisterForm from "../../views/Auth/RegisterForm.tsx";
 import ForgotPasswordForm from "../../views/Auth/ForgotPasswordForm.tsx";
 import {animated, useTransition} from "@react-spring/web";
 import VerifyOTPForm from "../../views/Auth/VerifyOTPForm.tsx";
+import ProfileForm from "../../views/Auth/ProfileForm.tsx";
 
 const LoginPage = () => {
     const [activeTab, setActiveTab] = useState<number>(1);
     const [phone, setPhone] = useState<string>('');
+    const [typeOTP, setTypeOTP] = useState<"REGISTER" | "FORGOT">("REGISTER");
     const handleTabClick = (tabIndex: number) => {
         setActiveTab(tabIndex);
     };
 
-    const onPhoneSubmit = (phoneNumber: string) => {
+    const onPhoneSubmit = (phoneNumber: string, type: "REGISTER" | "FORGOT") => {
         setPhone(phoneNumber);
         handleTabClick(4);
+        setTypeOTP(type);
     };
 
     const transitions = useTransition(activeTab, {
@@ -57,16 +60,20 @@ const LoginPage = () => {
                             </animated.div>
                         ) : item === 2 ? (
                             <animated.div style={styles}>
-                                <RegisterForm hidden={activeTab !== 2}/>
+                                <RegisterForm hidden={activeTab !== 2} onSubmit={onPhoneSubmit}/>
                             </animated.div>
                         ) : item === 3 ? (
                             <animated.div style={styles}>
                                 <ForgotPasswordForm hidden={activeTab !== 3} onBackClick={() => handleTabClick(1)}
                                                     onPhoneSubmit={onPhoneSubmit}/>
                             </animated.div>
+                        ) : item === 4 ? (
+                            <animated.div style={styles}>
+                                <VerifyOTPForm hidden={activeTab !== 4} phone={phone} type={typeOTP}/>
+                            </animated.div>
                         ) : (
                             <animated.div style={styles}>
-                                <VerifyOTPForm hidden={activeTab !== 4} phone={phone}/>
+                                <ProfileForm/>
                             </animated.div>
                         )
                     ))

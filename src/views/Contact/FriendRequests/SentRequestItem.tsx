@@ -36,12 +36,7 @@ const SentRequestItem = ({request}: SentRequestItemProps) => {
     return (
         <div className="bg-white rounded p-4">
             <div className="flex flex-row gap-4 mb-4">
-                <div className="w-11 h-11">
-                    {
-                        request.profile.thumbnailAvatar ? <Avatar src={request.profile.thumbnailAvatar} alt="Avatar"/> :
-                            <Avatar>{request.profile?.firstName.charAt(0).toUpperCase()}</Avatar>
-                    }
-                </div>
+                <Avatar src={request.profile.thumbnailAvatar} name={request.displayName}/>
                 <div className="flex-1">
                     <div className="font-semibold">{request.displayName}</div>
                     <div className="text-xs text-gray-500">Bạn đã gửi lời mời</div>

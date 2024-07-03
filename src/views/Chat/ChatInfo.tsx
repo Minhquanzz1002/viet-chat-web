@@ -31,11 +31,7 @@ const ChatInfo = ({chatRoom}: ChatInfoProps) => {
             <div className="scrollbar-thin overflow-y-scroll flex-1">
                 <div>
                     <div className="flex flex-col items-center pt-5 pb-4 px-4">
-                        {
-                            chatRoom?.avatar ? <Avatar
-                                    src={chatRoom.avatar} alt="Avatar"/> :
-                                <Avatar>{chatRoom?.name.charAt(0).toUpperCase()}</Avatar>
-                        }
+                        <Avatar src={chatRoom?.avatar} name={chatRoom?.name}/>
                         <div className="font-medium text-lg flex items-center mt-3">
                             {chatRoom?.name ? (
                                 <>

@@ -284,11 +284,7 @@ const ChatView = () => {
                     <div className="h-16 max-h-16 min-h-16 border-b px-4 flex flex-row items-center justify-between">
                         <div className="inline-flex gap-x-3">
                             <div>
-                                {
-                                    chat?.avatar ? <Avatar
-                                            src={chat.avatar} alt="Avatar"/> :
-                                        <Avatar>{chat?.name.charAt(0).toUpperCase()}</Avatar>
-                                }
+                                <Avatar src={chat?.avatar} name={chat?.name}/>
                             </div>
                             <div className="flex flex-col gap-y-1">
                                 <div className="font-medium text-lg group flex items-center h-8">

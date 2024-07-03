@@ -13,9 +13,9 @@ export interface UserProfile {
     id: string;
     firstName: string;
     lastName: string;
-    bio: string | null;
-    thumbnailAvatar: string | null;
-    coverImage: string | null;
+    bio: string;
+    thumbnailAvatar: string;
+    coverImage: string;
     gender: boolean;
     birthday: string;
     createdAt: string;
@@ -26,10 +26,10 @@ export interface ChatRoom {
     id: string;
     lastMessage: LastMessage;
     name: string;
-    avatar: string | null;
-    groupId: string | null;
+    avatar: string;
+    groupId: string;
     status: string;
-    lastSeenMessageId: string | null;
+    lastSeenMessageId: string;
 }
 
 export interface LastMessage {

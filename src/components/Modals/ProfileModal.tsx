@@ -124,7 +124,7 @@ const ProfileModal = ({onClose}: ProfileModalProps) => {
                                                 className="relative z-20 ml-4 -mt-6 h-24 max-w-20 rounded-full">
                                                 <div className="relative drop-shadow-2 flex justify-center">
                                                     <img
-                                                        src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpPn3HE6cHkT34tqWkpDDr0IclFlNh9MLzgQ&s"}
+                                                        src={profile?.thumbnailAvatar}
                                                         className="w-full aspect-square ring-1 ring-white object-cover object-center rounded-full"
                                                         alt="profile"
                                                     />

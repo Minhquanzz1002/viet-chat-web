@@ -54,13 +54,7 @@ const EditDisplayNameModal = ({onChangeTab, onCloseModal, friend}: EditProfileMo
         <div className="w-full py-3">
             <div className="px-4">
                 <div className="inline-flex justify-center w-full py-3">
-                    {
-                        friend.profile.thumbnailAvatar ? (
-                            <Avatar className="w-16 h-16" src={friend.profile.thumbnailAvatar} alt="Avatar"/>
-                        ) : (
-                            <Avatar className="w-16 h-16">{friend.displayName.charAt(0).toUpperCase()}</Avatar>
-                        )
-                    }
+                    <Avatar src={friend.profile.thumbnailAvatar} name={friend.displayName} size="extra-large"/>
                 </div>
                 <div className="text-sm text-center pb-2">
                     Hãy đặt cho <span className="font-medium">{friend.displayName}</span> một cái tên dễ nhớ

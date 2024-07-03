@@ -36,7 +36,7 @@ const ModalAddFriend = ({onClose}: ModalAddFriendProps) => {
     }
 
     return (
-        <Modal width={400}>
+        <Modal width={400} onClose={onClose}>
             <Modal.Header title={titles[activeTab]} onClose={onClose} onBack={activeTab === 0 ? undefined : onBackTab}/>
             <Modal.Body>
                 <SwitchTransition mode="out-in">

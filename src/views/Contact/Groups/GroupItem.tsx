@@ -98,12 +98,7 @@ const GroupItem = ({group, showDivider}: GroupItemProps) => {
             <div className='hover:bg-[#F3F5F6] cursor-pointer flex flex-row px-4 h-[72px]' onClick={onClickGroupChat}
                  onContextMenu={onRightClickShowMenu}>
                 <div className='flex-1 flex flex-row items-center'>
-                    <div className="w-11 h-11">
-                        {
-                            group.thumbnailAvatar ? <Avatar src={group.thumbnailAvatar} alt="Avatar"/> :
-                                <Avatar>{group.name.charAt(0).toUpperCase()}</Avatar>
-                        }
-                    </div>
+                    <Avatar src={group.thumbnailAvatar} name={group.name}/>
                     {
                         group?.name && (
                             <div

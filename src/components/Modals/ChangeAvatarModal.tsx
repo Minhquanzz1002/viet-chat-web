@@ -25,15 +25,11 @@ const ChangeAvatarModal = ({onChangeImage}: ChangeAvatarModalProps) => {
             </div>
             <div className="min-h-80">
                 <div className="grid grid-cols-4 gap-3">
-                    {
-                        profile?.thumbnailAvatar &&
-                        <Avatar src={profile.thumbnailAvatar} className="w-16 h-16"
-                                onClick={() => {
-                                    if (profile?.thumbnailAvatar) {
-                                        onChangeImage(profile.thumbnailAvatar);
-                                    }
-                                }}/>
-                    }
+                    <Avatar src={profile?.thumbnailAvatar} size="extra-large" onClick={() => {
+                        if (profile?.thumbnailAvatar) {
+                            onChangeImage(profile.thumbnailAvatar);
+                        }
+                    }}/>
                 </div>
             </div>
         </div>

@@ -3,56 +3,97 @@ import React from 'react';
 interface AvatarProps {
     alt?: string;
     src?: string;
-    children?: React.ReactNode;
-    size?: number,
-    className?: string;
+    name?: string;
+    size?: 'small' | 'large' | 'extra-large' | 'very-small';
     onClick?: React.MouseEventHandler<HTMLImageElement> | undefined;
 }
 
-const getBackgroundColor = (children: React.ReactNode): string => {
-    if (typeof children === "string") {
-        switch (children) {
-            case 'A':
-                return 'bg-gradient-to-r from-fuchsia-300 to-fuchsia-600';
-            case 'C':
-                return 'bg-gradient-to-r from-zinc-300 to-zinc-600';
-            case 'Đ':
-                return 'bg-gradient-to-r from-stone-300 to-stone-600';
-            case 'T':
-                return 'bg-gradient-to-r from-pink-300 to-pink-600';
-            case 'M':
-                return 'bg-gradient-to-r from-violet-300 to-violet-600';
-            case 'H':
-                return 'bg-gradient-to-r from-rose-300 to-rose-600';
-            case 'K':
-                return 'bg-gradient-to-r from-slate-300 to-slate-600';case 'L':
-                return 'bg-gradient-to-r from-yellow-300 to-yellow-600';
-            default:
-                return 'bg-gradient-to-r from-blue-300 to-blue-600';
-        }
+const getBackgroundColor = (name?: string): string => {
+    switch (name) {
+        case 'A':
+        case 'B':
+        case 'C':
+            return 'linear-gradient(0deg,#f31bc8,#fbadeb)';
+        case 'D':
+        case 'E':
+        case 'F':
+            return 'linear-gradient(0deg,#37b361,#88d7a3)';
+        case 'G':
+        case 'H':
+        case 'I':
+            return 'linear-gradient(0deg,#eb5e00,#ffc70f)';
+        case 'J':
+        case 'K':
+        case 'L':
+            return 'linear-gradient(0deg,#37b361,#88d7a3)';
+        case 'M':
+        case 'N':
+        case 'O':
+            return 'linear-gradient(0deg,#6f3fcf,#1f78ff)';
+        case 'P':
+        case 'Q':
+        case 'R':
+            return 'linear-gradient(0deg,#5a2db4,#a385e0)';
+        case 'S':
+        case 'T':
+        case 'U':
+            return 'linear-gradient(0deg,#ff3838,#fbadeb)';
+        case 'Y':
+        case 'W':
+        case 'X':
+            return 'linear-gradient(90deg,#0fc3ff,#4bc377)';
+        default:
+            return 'linear-gradient(0deg,#06f,#529aff)';
     }
-    return 'bg-gradient-to-r from-blue-300 to-blue-600';
 }
 
-const Avatar = ({alt = "avatar", src, children, className = "w-11 h-11", onClick}: AvatarProps) => {
+const sizeClasses = {
+    'very-small': 'size-6 min-h-6 min-w-6 text-xs',
+    small: 'size-10 min-h-10 min-w-10 text-sm',
+    large: 'size-12 min-h-12 min-w-12 text-xl',
+    'extra-large': 'size-20 min-h-20 min-w-20 text-2xl'
+}
+
+const Avatar = ({alt = "Avatar", src, name, onClick, size = 'large'}: AvatarProps) => {
     if (src) {
         return (
-            <div className={className + " overflow-hidden"}>
-                <img className={` rounded-full object-fill cursor-pointer ${className}`}
-                     src={src}
-                     onClick={onClick}
-                     alt={alt}/>
+            <div className='size-auto'>
+                <div className={`${sizeClasses[size]} overflow-hidden relative`}>
+                    <img className={`object-cover ${sizeClasses[size]} rounded-full  border border-white`}
+                         draggable={false}
+                         src={src}
+                         onClick={onClick}
+                         alt={alt}/>
+                </div>
             </div>
         )
     } else {
-        const bgColor: string = getBackgroundColor(children);
-        return (
-            <div
-                className={`relative inline-flex items-center justify-center aspect-square overflow-hidden ${bgColor} cursor-pointer rounded-full overflow-hidden ${className}`}
-                onClick={onClick}>
-                <span className={`font-medium text-white text-xl dark:text-gray-300 rounded-full ${className} inline-flex justify-center items-center uppercase`}>{children}</span>
-            </div>
-        );
+        if (!name) {
+            return (
+                <div className='size-auto'>
+                    <div className={`${sizeClasses[size]} overflow-hidden relative`}>
+                        <div
+                            className={`object-cover ${sizeClasses[size]} bg-gray-200 animate-pulse rounded-full border border-white uppercase inline-flex items-center justify-center font-medium text-white`}
+                        />
+                    </div>
+                </div>
+            );
+        } else {
+            const bgColor: string = getBackgroundColor(name?.charAt(0));
+            return (
+                <div className='size-auto'>
+                    <div className={`${sizeClasses[size]} overflow-hidden relative`}>
+                        <div
+                            className={`object-cover ${sizeClasses[size]} rounded-full border border-white uppercase inline-flex items-center justify-center font-medium text-white`}
+                            style={{background: bgColor}}
+                            onClick={onClick}
+                        >
+                            {name?.charAt(0)}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
     }
 };
 

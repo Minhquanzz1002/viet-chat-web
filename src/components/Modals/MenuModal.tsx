@@ -1,10 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Avatar} from "../Avatar";
 import {useAuth} from "../../hooks/useAuth.ts";
 import Skeleton from "../Skeleton";
 import ProfileModal from "./ProfileModal.tsx";
 import {useNavigate} from "react-router-dom";
 import useTabSelected from "../../hooks/useTabSelected.ts";
+import useOnClickOutside from "../../hooks/useOnClickOutside.ts";
 
 const MenuModal = () => {
     const {profile, logout} = useAuth();
@@ -12,6 +13,7 @@ const MenuModal = () => {
     const [isShowMenu, setIsShowMenu] = useState<boolean>(false);
     const [isShowProfile, setIsShowProfile] = useState<boolean>(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    useOnClickOutside<HTMLDivElement>(menuRef, () => setIsShowMenu(false));
     const navigate = useNavigate();
     const onClickLogout = () => {
         logout();
@@ -24,30 +26,10 @@ const MenuModal = () => {
         setIsShowProfile(true);
     }
 
-    const handleClickOutside = (event: MouseEvent) => {
-        if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-            setIsShowMenu(false);
-        }
-    };
-
-    useEffect(() => {
-        if (isShowMenu) {
-            document.addEventListener('mousedown', handleClickOutside);
-        } else {
-            document.removeEventListener('mousedown', handleClickOutside);
-        }
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [isShowMenu]);
-
     return (
         <React.Fragment>
             <div className="cursor-pointer" title={profile?.firstName + " " + profile?.lastName} onClick={() => setIsShowMenu(!isShowMenu)}>
-                {
-                    profile?.thumbnailAvatar ? <Avatar src={profile.thumbnailAvatar} alt="avatar"/> :
-                        <Avatar>{profile?.lastName.charAt(0).toUpperCase()}</Avatar>
-                }
+                <Avatar src={profile?.thumbnailAvatar} name={profile?.firstName}/>
             </div>
 
             {

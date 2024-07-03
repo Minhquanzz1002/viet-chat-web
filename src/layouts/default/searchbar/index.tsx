@@ -34,9 +34,6 @@ const Searchbar = () => {
                             className="h-8 aspect-square flex justify-center items-center hover:bg-[#DFE2E7] rounded cursor-pointer" title="Tạo nhóm chat" >
                             <GroupPlus/>
                         </div>
-                        {/*{*/}
-                        {/*    isShowCreateGroupModal && <CreateGroupModal onClose={() => setIsShowCreateGroupModal(false)}/>*/}
-                        {/*}*/}
                     </React.Fragment>
                 )
             }

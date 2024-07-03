@@ -1,12 +1,17 @@
 import OTPInput from "../../components/Forms/Inputs/OTPInput.tsx";
 import {useEffect, useState} from "react";
+import {useMutation} from "@tanstack/react-query";
+import {OTPRequestDTO} from "../../models/phone.ts";
+import phoneApi from "../../api/phoneApi.ts";
+import {ErrorResponse, Tokens} from "../../models";
 
 interface VerifyOTPFormProps {
     hidden: boolean;
     phone: string;
+    type: "REGISTER" | "FORGOT";
 }
 
-const VerifyOTPForm = ({hidden, phone}: VerifyOTPFormProps) => {
+const VerifyOTPForm = ({hidden, phone, type}: VerifyOTPFormProps) => {
     const [timeLeft, setTimeLeft] = useState<number>(180);
     const [countdown, setCountdown] = useState<number>(30);
     const [otp, setOtp] = useState<string>("");
@@ -56,8 +61,21 @@ const VerifyOTPForm = ({hidden, phone}: VerifyOTPFormProps) => {
         }
     }
 
+    const validateOTPRegisterMutation = useMutation({
+        mutationFn: (data: OTPRequestDTO) => phoneApi.validate(data),
+        onSuccess: (response: Tokens) => {
+            console.log(response);
+            return response;
+        },
+        onError: (error: ErrorResponse) => {
+            console.log(error.detail);
+        }
+    });
+
     const onVerifyOtp = () => {
-        console.log(otp);
+        if (type === "REGISTER") {
+            validateOTPRegisterMutation.mutate({phone, otp});
+        }
     }
 
     // Change page title dynamically

@@ -47,15 +47,8 @@ const ModalBodyGroupMember = ({members, groupId}: ModalBodyGroupMemberProps) => 
                                             <div
                                                 className="inline-flex items-center w-full h-16 hover:bg-gray-200 cursor-pointer px-4 gap-x-2"
                                                 key={"group-member-" + member.profile.id}>
-                                                <div>
-                                                    {
-                                                        member.profile.thumbnailAvatar ?
-                                                            <Avatar src={member.profile.thumbnailAvatar}
-                                                                    className="w-10 h-10"/> :
-                                                            <Avatar
-                                                                className="w-10 h-10">{member.displayName ? member.displayName.charAt(0) : member.profile.firstName.charAt(0)}</Avatar>
-                                                    }
-                                                </div>
+                                                <Avatar src={member.profile.thumbnailAvatar}
+                                                        name={member?.displayName ? member.displayName : member.profile.firstName} size="small"/>
                                                 <div
                                                     className="flex-1 flex flex-col items-start justify-center gap-y-1">
                                                     <div

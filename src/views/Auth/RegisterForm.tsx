@@ -1,23 +1,42 @@
 import InputIcon from "../../components/Forms/Inputs/InputIcon.tsx";
 import {Smartphone} from "lucide-react";
 import React, {useEffect, useState} from "react";
+import {useMutation} from "@tanstack/react-query";
+import {ErrorResponse} from "../../models";
+import {PhoneNumberDTP} from "../../models/phone.ts";
+import phoneApi from "../../api/phoneApi.ts";
 
 interface RegisterFormProps {
     hidden: boolean;
+    onSubmit: (phone: string, type: "REGISTER" | "FORGOT") => void;
 }
-const RegisterForm = ({hidden = false} : RegisterFormProps) => {
+const RegisterForm = ({hidden = false, onSubmit} : RegisterFormProps) => {
     const [phone, setPhone] = useState<string>("");
     const [error, setError] = useState<string>("");
+
+
+    const sendOTPMutation = useMutation({
+        mutationFn: (data: PhoneNumberDTP) => phoneApi.sendOTP(data),
+        onSuccess: (response: string) => {
+            onSubmit(phone, "REGISTER");
+            return response;
+        },
+        onError: (error: ErrorResponse) => {
+            console.log(error.detail);
+        }
+    });
+
     const onClickSentOTP = () => {
         if (!/^0(?:3[2-9]|8[12345689]|7[06789]|5[2689]|9[2367890])\d{7}$/.test(phone)) {
             setError("Vui lòng nhập số điện thoại hợp lệ");
             return;
         }
+        sendOTPMutation.mutate({phone: phone});
     }
 
     const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
         setError("");
-        const newPhone = e.target.value;
+        const newPhone = e.target.value.trim();
         if (newPhone === '' || /^\d+$/.test(newPhone)) {
             setPhone(newPhone);
         }

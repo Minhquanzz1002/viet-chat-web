@@ -62,7 +62,7 @@ export interface Sender {
     id: string;
     firstName: string;
     lastName: string;
-    thumbnailAvatar: string | null;
+    thumbnailAvatar: string;
     gender: boolean;
 }
 

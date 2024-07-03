@@ -56,7 +56,10 @@ const ModalCreateGroup = ({onClose}: ModalCreateGroupProps) => {
     });
 
     const createGroupMutation = useMutation({
-        mutationFn: ({token, data}: { token: string, data: GroupRequestCreateDTO}) => groupApi.createGroup(token, data),
+        mutationFn: ({token, data}: {
+            token: string,
+            data: GroupRequestCreateDTO
+        }) => groupApi.createGroup(token, data),
         onSuccess: (response: GroupDTO) => {
             console.log(response);
             queryClient.invalidateQueries({queryKey: ['chatRooms']});
@@ -70,7 +73,7 @@ const ModalCreateGroup = ({onClose}: ModalCreateGroupProps) => {
     const onClickCreateGroup = () => {
         if (token !== "") {
             const memberIds: string[] = members.map(member => member.id);
-            const data : GroupRequestCreateDTO = {
+            const data: GroupRequestCreateDTO = {
                 name: name,
                 thumbnailAvatar: avatar,
                 members: memberIds
@@ -91,7 +94,7 @@ const ModalCreateGroup = ({onClose}: ModalCreateGroupProps) => {
                 setSearchValue("")
                 return;
             }
-            const searchProfile : Profile = {
+            const searchProfile: Profile = {
                 id: searchSuccess.id,
                 lastName: searchSuccess.lastName,
                 firstName: searchSuccess.firstName,
@@ -243,7 +246,7 @@ const ModalCreateGroup = ({onClose}: ModalCreateGroupProps) => {
                     </div>
                 )
             }
-            <Modal width={520}>
+            <Modal width={520} onClose={onClose}>
                 <Modal.Header title="Tạo nhóm" onClose={onClose}/>
                 <Modal.Body>
                     <div className="flex flex-col h-full">
@@ -277,7 +280,8 @@ const ModalCreateGroup = ({onClose}: ModalCreateGroupProps) => {
                                     className={`inline-flex items-center justify-center w-full ${(searchSuccess || searchError) ? 'border-b' : 'border focus-within:border-blue-500 rounded-full'} gap-x-2 px-2 py-1 h-10 relative`}>
                                     <Search strokeWidth={1.5} className="text-gray-500"/>
                                     <input value={searchValue} onChange={onChangeSearchInput}
-                                           className="flex-1 outline-none text-sm" type="text" onKeyDown={onKeyDownSearchInput} placeholder="Nhập số điện thoại"/>
+                                           className="flex-1 outline-none text-sm" type="text"
+                                           onKeyDown={onKeyDownSearchInput} placeholder="Nhập số điện thoại"/>
                                     {
                                         searchValue.length > 0 && (
                                             <button className="bg-gray-600 rounded-full hover:bg-blue-600"
@@ -289,7 +293,9 @@ const ModalCreateGroup = ({onClose}: ModalCreateGroupProps) => {
                                 </div>
                                 {
                                     searchSuccess && (
-                                        <div className="h-13 my-1 hover:bg-gray-200 inline-flex justify-start items-center px-5 w-full gap-x-3 cursor-pointer" onClick={onClickAddSearchResultToGroupMember}>
+                                        <div
+                                            className="h-13 my-1 hover:bg-gray-200 inline-flex justify-start items-center px-5 w-full gap-x-3 cursor-pointer"
+                                            onClick={onClickAddSearchResultToGroupMember}>
                                             {
                                                 members.some(m => m.id === searchSuccess.id) ? (
                                                     <CircleCheck size={17}/>
@@ -297,17 +303,13 @@ const ModalCreateGroup = ({onClose}: ModalCreateGroupProps) => {
                                                     <Circle className="text-gray-500" size={17}/>
                                                 )
                                             }
-                                            {
-                                                searchSuccess.thumbnailAvatar ? (
-                                                    <Avatar
-                                                        className="w-9 h-9" src={searchSuccess.thumbnailAvatar}/>
-                                                ) : (
-                                                    <Avatar
-                                                        className="w-9 h-9 !text-base">{searchSuccess?.displayName ? searchSuccess.displayName.charAt(0) : searchSuccess.firstName.charAt(0)}</Avatar>
-                                                )
-                                            }
+                                            <Avatar
+                                                size="small"
+                                                src={searchSuccess.thumbnailAvatar}
+                                                name={searchSuccess?.displayName ? searchSuccess.displayName : searchSuccess.firstName}/>
                                             <div className="flex flex-col">
-                                                <div className="text-sm">{searchSuccess?.displayName ? searchSuccess.displayName : searchSuccess.firstName + " " + searchSuccess.lastName}</div>
+                                                <div
+                                                    className="text-sm">{searchSuccess?.displayName ? searchSuccess.displayName : searchSuccess.firstName + " " + searchSuccess.lastName}</div>
                                                 <div className="text-xs text-gray-500">{searchSuccess.phone}</div>
                                             </div>
                                         </div>
@@ -342,15 +344,8 @@ const ModalCreateGroup = ({onClose}: ModalCreateGroupProps) => {
                                                                         <Circle className="text-gray-500" size={17}/>
                                                                     )
                                                                 }
-                                                                {
-                                                                    friend.profile.thumbnailAvatar ? (
-                                                                        <Avatar src={friend.profile.thumbnailAvatar}
-                                                                                className="w-9 h-9"/>
-                                                                    ) : (
-                                                                        <Avatar
-                                                                            className="w-9 h-9 !text-base">{friend.displayName.charAt(0).toUpperCase()}</Avatar>
-                                                                    )
-                                                                }
+                                                                <Avatar src={friend.profile.thumbnailAvatar}
+                                                                        name={friend.displayName} size="small"/>
                                                                 <div>{friend.displayName}</div>
                                                             </div>
                                                         ))
@@ -375,17 +370,8 @@ const ModalCreateGroup = ({onClose}: ModalCreateGroupProps) => {
                                                                 <div key={"member-choose-" + member.id}
                                                                      className="inline-flex items-center justify-between gap-x-1.5 bg-blue-100 rounded-full w-full px-2 py-1"
                                                                 >
-                                                                    <div>
-                                                                        {
-                                                                            member.thumbnailAvatar ? (
-                                                                                <Avatar src={member.thumbnailAvatar}
-                                                                                        className="w-6 h-6"/>
-                                                                            ) : (
-                                                                                <Avatar
-                                                                                    className="w-6 h-6 !text-xs">{member.firstName.charAt(0).toUpperCase()}</Avatar>
-                                                                            )
-                                                                        }
-                                                                    </div>
+                                                                    <Avatar src={member.thumbnailAvatar}
+                                                                            name={member.firstName} size="very-small"/>
                                                                     <div
                                                                         className="text-xs line-clamp-1 flex-1 text-start">{member.firstName + " " + member.lastName}</div>
                                                                     <button className="rounded-full bg-blue-600 "
@@ -407,7 +393,8 @@ const ModalCreateGroup = ({onClose}: ModalCreateGroupProps) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="gray" onClick={onClose}>Hủy</Button>
-                    <Button variant="primary" disabled={isBtnCreateDisabled || createGroupMutation.isPending} onClick={onClickCreateGroup}>{createGroupMutation.isPending ? 'Đang tạo...' : 'Tạo group'}</Button>
+                    <Button variant="primary" disabled={isBtnCreateDisabled || createGroupMutation.isPending}
+                            onClick={onClickCreateGroup}>{createGroupMutation.isPending ? 'Đang tạo...' : 'Tạo group'}</Button>
                 </Modal.Footer>
             </Modal>
         </React.Fragment>

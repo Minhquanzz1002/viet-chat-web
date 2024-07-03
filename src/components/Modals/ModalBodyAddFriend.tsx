@@ -122,15 +122,7 @@ const ModalBodyAddFriend = ({onChangeTab, onClose, onChangeSearchResult}: ModalB
                             <div
                                 className="inline-flex items-center px-4 w-full gap-x-2 hover:bg-gray-100 cursor-pointer h-[54px]"
                                 onClick={() => onClickRecentSearch(history)}>
-                                {
-                                    history.thumbnailAvatar ? (
-                                        <Avatar className="h-10 w-10" src={history.thumbnailAvatar}
-                                                alt="Avatar"/>
-                                    ) : (
-                                        <Avatar
-                                            className="h-10 w-10">{history.firstName.charAt(0).toUpperCase()}</Avatar>
-                                    )
-                                }
+                                <Avatar src={history.thumbnailAvatar} name={history?.displayName ? history.displayName : history.firstName} size="small"/>
                                 <div className="flex-1 flex flex-col">
                                     <div
                                         className="text-sm">{history.firstName + " " + history.lastName}</div>
@@ -149,7 +141,7 @@ const ModalBodyAddFriend = ({onChangeTab, onClose, onChangeSearchResult}: ModalB
                         dataExample.map((ex: string) => (
                             <div
                                 className="inline-flex items-center px-4 w-full gap-x-2 hover:bg-gray-100 cursor-pointer h-[54px]">
-                                <Avatar className="h-10 w-10">{ex.charAt(0).toUpperCase()}</Avatar>
+                                <Avatar name={ex} size="small"/>
                                 <div className="flex-1 flex flex-col">
                                     <div className="text-sm">{ex}</div>
                                     <div className="text-xs text-gray-500">Từ gợi ý kết bạn</div>

@@ -34,11 +34,7 @@ const OtherMessage = ({message, onReplyMessage}: OtherMessageProps) => {
     return (
         <div className="flex justify-start gap-x-3 group/container-msg">
             <div>
-                {
-                    message.sender.thumbnailAvatar ?
-                        <Avatar src={message.sender.thumbnailAvatar} alt="Avatar" className="w-10 h-10"/> :
-                        <Avatar className="w-10 h-10">{message.sender.firstName.charAt(0).toUpperCase()}</Avatar>
-                }
+                <Avatar src={message.sender.thumbnailAvatar} name={message.sender.firstName}/>
             </div>
             <div className="w-fit min-w-24 max-w-[75%] flex justify-start bg-white shadow rounded-lg p-3">
                 <div>

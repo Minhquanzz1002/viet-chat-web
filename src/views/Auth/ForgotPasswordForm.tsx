@@ -5,7 +5,7 @@ import React, {useEffect, useState} from "react";
 interface ForgotPasswordFormProps {
     hidden: boolean;
     onBackClick: () => void;
-    onPhoneSubmit: (phoneNumber: string) => void;
+    onPhoneSubmit: (phoneNumber: string, type: "REGISTER" | "FORGOT") => void;
 }
 
 const ForgotPasswordForm = ({hidden = false, onBackClick, onPhoneSubmit}: ForgotPasswordFormProps) => {
@@ -16,7 +16,7 @@ const ForgotPasswordForm = ({hidden = false, onBackClick, onPhoneSubmit}: Forgot
             setError("Vui lòng nhập số điện thoại hợp lệ");
             return;
         }
-        onPhoneSubmit(phone);
+        onPhoneSubmit(phone, "FORGOT");
     }
 
     const onChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {

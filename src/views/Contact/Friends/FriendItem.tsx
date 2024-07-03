@@ -108,13 +108,7 @@ const FriendItem = ({friend, showDivider}: FriendItemProps) => {
             <div className='hover:bg-[#F3F5F6] cursor-pointer flex flex-row px-4' onClick={onClickChatRoom}
                  onContextMenu={onRightClickShowMenu}>
                 <div className='flex-1 flex flex-row items-center'>
-                    <div className="w-11 h-11">
-                        {
-                            friend.profile.thumbnailAvatar ?
-                                <Avatar src={friend.profile.thumbnailAvatar} alt="Avatar"/> :
-                                <Avatar>{friend.profile?.firstName.charAt(0).toUpperCase()}</Avatar>
-                        }
-                    </div>
+                    <Avatar src={friend.profile.thumbnailAvatar} name={friend?.displayName}/>
                     {
                         friend?.displayName && <div
                             className={`w-full ml-4 py-5 ${showDivider && 'border-b-2'} font-semibold`}>{friend.displayName}</div>
