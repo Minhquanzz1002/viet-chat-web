@@ -22,9 +22,9 @@ const WebsocketProvider = ({children}: Props) => {
     const {tabSelected} = useTabSelected();
 
     useEffect(() => {
-        if (token !== '') {
+        if (token) {
             const stompClient = new Client({
-                webSocketFactory: () => new SockJS('http://localhost:8080/api/ws'),
+                webSocketFactory: () => new SockJS(`${import.meta.env.VITE_BASE_URL_API}/ws`),
                 connectHeaders: {
                     Authorization: `Bearer ${token}`
                 },
@@ -50,7 +50,7 @@ const WebsocketProvider = ({children}: Props) => {
                 }
             }
         }
-    }, [token]);
+    }, [chatRooms, token]);
 
     const onMessageReceived = (payload: IFrame) => {
         try {

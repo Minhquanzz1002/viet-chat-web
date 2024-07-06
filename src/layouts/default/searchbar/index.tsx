@@ -1,6 +1,6 @@
 import {GroupPlus, Search, UserPlus2} from "../../../components/Icons";
 import React, {useState} from "react";
-import useSearch from "../../../hooks/useSearch.tsx";
+import useSearch from "../../../hooks/useSearch.ts";
 import ModalAddFriend from "../../../components/Modals/ModalAddFriend.tsx";
 import ModalCreateGroup from "../../../components/Modals/ModalCreateGroup.tsx";
 

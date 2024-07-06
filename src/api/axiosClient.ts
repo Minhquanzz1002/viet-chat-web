@@ -1,8 +1,12 @@
-import axios, {AxiosResponse} from "axios";
+import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+import Cookies from "js-cookie";
+import {Tokens} from "../models";
+import {redirect} from "react-router-dom";
 
 
-const axiosClient = axios.create({
-    baseURL: 'http://localhost:8080/api',
+console.log(import.meta.env.VITE_BASE_URL_API);
+const axiosClient: AxiosInstance = axios.create({
+    baseURL: import.meta.env.VITE_BASE_URL_API,
     headers: {
         'Content-Type': 'application/json',
     },
@@ -11,21 +15,45 @@ const axiosClient = axios.create({
 
 // Add a request interceptor
 axiosClient.interceptors.request.use(function (config) {
-    // Do something before request is sent
+    const token = Cookies.get('token');
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+    }
     return config;
 }, function (error) {
-    // Do something with request error
     return Promise.reject(error);
 });
 
 // Add a response interceptor
-axiosClient.interceptors.response.use(function (response: AxiosResponse) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
+axiosClient.interceptors.response.use((response: AxiosResponse) => {
     return response && response.data ? response.data : response;
-}, function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
+},  async (error) => {
+    console.error('Error:', error);
+    const originalRequest: AxiosRequestConfig & { _retry?: boolean } = error.config;
+    if (error.response.status === 401 && !originalRequest?._retry) {
+        originalRequest._retry = true;
+        try {
+            const refreshToken = Cookies.get('refreshToken');
+            const response = await axios.post<Tokens>(`${import.meta.env.VITE_BASE_URL_API}/v1/auth/refresh-token`, {token: refreshToken});
+            const tokens = response.data;
+            console.log('Refresh success', tokens);
+            Cookies.set('token', tokens.accessToken);
+            Cookies.set('refreshToken', tokens.refreshToken);
+            if (!originalRequest.headers) {
+                originalRequest.headers = {};
+            }
+            originalRequest.headers['Authorization'] = `Bearer ${tokens.accessToken}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${tokens.accessToken}`;
+            return axiosClient(originalRequest);
+        } catch (err) {
+            console.error('Refresh token failed:', err);
+            Cookies.remove('token');
+            Cookies.remove('refreshToken');
+            return redirect("/auth/login");
+            // return Promise.reject(error);
+        }
+    }
+
     if (error && error.response && error.response.data) {
         return Promise.reject(error.response.data);
     }

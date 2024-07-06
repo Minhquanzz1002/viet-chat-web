@@ -7,7 +7,7 @@ import TodoMenu from "../menu/TodoMenu.tsx";
 import {AddressBook, CommentDots, Gear, SquareCheck} from "../../../components/Icons";
 import useTabSelected from "../../../hooks/useTabSelected.ts";
 import MenuModal from "../../../components/Modals/MenuModal.tsx";
-import useSearch from "../../../hooks/useSearch.tsx";
+import useSearch from "../../../hooks/useSearch.ts";
 
 interface Tab {
     title: string;
